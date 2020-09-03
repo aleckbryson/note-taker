@@ -43,8 +43,9 @@ app.post("/api/notes", function (req, res) {
     res.json(newNote);
 });
 
-app.delete("/api/notes/:id", function (req, res) {
-    res.sendFile(dbjson);
+app.delete("/api/notes", function (req, res) {
+
+    res.send(dbjson);
 });
 
 app.listen(PORT, function () {
