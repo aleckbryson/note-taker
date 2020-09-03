@@ -2,6 +2,7 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
+var notes = require("db/db.json")
 
 // Sets up the Express App
 // =============================================================
@@ -13,16 +14,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes added for notes.html and index.html files
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./index.html"));
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "./notes.html"));
+    res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
 // read the db.json file and return all saved notes as JSON.
-app.get("/api/notes", function(req, res) {
+app.get("/api/notes", function (req, res) {
     res.json(notes);
-  });
+});
 
+app.post("/api/notes", function (req, res) {
+    var newNote = req.body;
+
+    console.log(newNote);
+
+    notes.push(newNote);
+
+    res.json(newNote);
+});
+
+app.listen(PORT, function () {
+    console.log("Server listening on: http://localhost:" + PORT);
+});
