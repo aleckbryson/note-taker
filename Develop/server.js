@@ -3,6 +3,8 @@
 var express = require("express");
 var path = require("path");
 var dbjson = require("./db/db.json")
+var moment = require('moment'); // require
+
 
 // Sets up the Express App
 // =============================================================
@@ -31,6 +33,8 @@ app.get("/api/notes", function (req, res) {
 
 app.post("/api/notes", function (req, res) {
     var newNote = req.body;
+
+    newNote.id = moment().format(); 
 
     console.log(newNote);
 
