@@ -2,7 +2,7 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
-var notes = require("db/db.json")
+var dbjson = require("./db/db.json")
 
 // Sets up the Express App
 // =============================================================
@@ -24,7 +24,7 @@ app.get("/notes", function (req, res) {
 
 // read the db.json file and return all saved notes as JSON.
 app.get("/api/notes", function (req, res) {
-    res.json(notes);
+    res.json(dbjson);
 });
 
 app.post("/api/notes", function (req, res) {
@@ -32,9 +32,13 @@ app.post("/api/notes", function (req, res) {
 
     console.log(newNote);
 
-    notes.push(newNote);
+    dbjson.push(newNote);
 
     res.json(newNote);
+});
+
+app.delete("/api/notes/:id", function (req, res) {
+    res.sendFile(dbjson);
 });
 
 app.listen(PORT, function () {
